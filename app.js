@@ -1,7 +1,7 @@
 'use strict';
 
 var leftImageElement = document.getElementById('leftImage');
-// var centerImageElement = document.getElementById('centerImage');
+var centerImageElement = document.getElementById('centerImage');
 var rightImageElement = document.getElementById('rightImage');
 var imageContainer = document.getElementById('imageContainer');
 
@@ -12,8 +12,6 @@ function Product(name) {
   this.path = `images/${name}.jpg`;
   this.views = 0;
   this.votes = 0;
-  //   this.min = 0;
-  //   this.max = 19;
   allProducts.push(this);
 }
 
@@ -22,32 +20,34 @@ function makeRandom() {
 }
 
 function renderProducts() {
-  var randomIndex = makeRandom();
-  console.log(randomIndex);
-  leftImageElement.src = allProducts[randomIndex].path;
-  leftImageElement.title = allProducts[randomIndex].name;
-  leftImageElement.name = allProducts[randomIndex].name;
+  var uniquePicsArray = [];
+  //assign values to index 0, 1, 2
+  uniquePicsArray[0] = makeRandom();
+  uniquePicsArray[1] = makeRandom();
+  uniquePicsArray[2] = makeRandom();
 
-  //   randomIndex = makeRandom();
+  if(uniquePicsArray[0] === uniquePicsArray[1] || uniquePicsArray[0] === uniquePicsArray[2] || uniquePicsArray[1] === uniquePicsArray[2]) {
+    // console.error('Duplicate found, Re-rolling!');
+    renderProducts();
+  }
+  //VIEWS
+  allProducts[uniquePicsArray[0]].views++;
+  //get a random index
+  //display a product whose index is the random number
+  leftImageElement.src = allProducts[uniquePicsArray[0]].path;
+  leftImageElement.name = allProducts[uniquePicsArray[0]].name;
+  leftImageElement.title = allProducts[uniquePicsArray[0]].name;
+  //views
+  allProducts[uniquePicsArray[1]].views++;
+  centerImageElement.src = allProducts[uniquePicsArray[0]].path;
+  centerImageElement.name = allProducts[uniquePicsArray[0]].name;
+  centerImageElement.title = allProducts[uniquePicsArray[0]].name;
+  //VIEWS
+  allProducts[uniquePicsArray[2]].views++;
+  rightImageElement.src = allProducts[uniquePicsArray[2]].path;
+  rightImageElement.name = allProducts[uniquePicsArray[2]].name;
+  rightImageElement.title = allProducts[uniquePicsArray[2]].name;
 
-  //   centerImageElement.src = allProducts[randomIndex].path;
-  //   centerImageElement.title = allProducts[randomIndex].name;
-  //   centerImageElement.name = allProducts[randomIndex].name;
-
-  randomIndex = makeRandom();
-
-  rightImageElement.src = allProducts[randomIndex].path;
-  rightImageElement.title = allProducts[randomIndex].name;
-  rightImageElement.name = allProducts[randomIndex].name;
-
-  //     //array to hold unique indexes
-  //     var uniquePicsArray = [];
-  //     uniquePicsArray[0] = makeRandom();
-  //     uniquePicsArray[1] = makeRandom();
-
-//   while(uniquePicsArray[0] === uniquePicsArray[1]) {
-//     //console.error('Duplicate found, re-rolling.');
-//     uniquePicsArray[1] = makeRandom();
 }
 
 
