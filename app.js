@@ -52,6 +52,7 @@ function renderProducts() {
 
 
 
+
 function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
