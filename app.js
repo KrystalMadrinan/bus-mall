@@ -3,7 +3,7 @@
 var leftImageElement = document.getElementById('leftImage');
 var centerImageElement = document.getElementById('centerImage');
 var rightImageElement = document.getElementById('rightImage');
-var imageContainer = document.getElementById('imageContainer');
+var containerElement = document.getElementById('imageContainer');
 
 var allProducts = [];
 
@@ -50,9 +50,11 @@ function renderProducts() {
   rightImageElement.title = allProducts[uniquePicsArray[2]].name;
 }
 
-
+var clickStart = 0;
+var amountOfClicks = 25;
 
 function handleClick() {
+
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
   for( var i = 0; i < allProducts.length; i++ ) {
@@ -60,11 +62,26 @@ function handleClick() {
       allProducts[i].votes++;
     }
   }
-
+  clickStart++;
+  console.log(clickStart);
   renderProducts();
+
+  if (amountOfClicks === clickStart) {
+    containerElement.remove();
+
+    var ulElement = document.getElementById('list');
+    for(var j = 0; j <allProducts.length; j++) {
+      var liElement = document.createElement('li');
+      liElement.textContent = `${allProducts[j].name}: ${allProducts[j].views}, ${allProducts[j].votes}`;
+      ulElement.appendChild(liElement);
+    }
+  }
 }
 
-imageContainer.addEventListener('click', handleClick);
+containerElement.addEventListener('click', handleClick);
+
+
+
 
 new Product('bag');
 new Product('banana');
