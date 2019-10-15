@@ -72,7 +72,7 @@ function handleClick() {
     var ulElement = document.getElementById('list');
     for(var j = 0; j <allProducts.length; j++) {
       var liElement = document.createElement('li');
-      liElement.textContent = `${allProducts[j].name}: ${allProducts[j].views}, ${allProducts[j].votes}`;
+      liElement.textContent = `${allProducts[j].name} had ${allProducts[j].views} views and ${allProducts[j].votes} votes.`;
       ulElement.appendChild(liElement);
     }
   }
