@@ -7,13 +7,47 @@ var containerElement = document.getElementById('imageContainer');
 
 var allProducts = [];
 
-function Product(name) {
+function Product(name, views, votes) {
   this.name = name;
   this.path = `images/${name}.jpg`;
-  this.views = 0;
-  this.votes = 0;
+  this.views = views || 0;
+  this.votes = votes || 0;
   allProducts.push(this);
 }
+
+if (localStorage.getItem('votes') === null) {
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('usb');
+  new Product('water-can');
+  new Product('wine-glass');
+} else {
+  var storageAllProducts = localStorage.getItem('votes');
+  // parsing 'data' from local st
+  var parsedAllProducts = JSON.parse(storageAllProducts);
+
+  for ( var k = 0; k < parsedAllProducts.length; k++) {
+    new Product(parsedAllProducts[k].name, parsedAllProducts[k].views, parsedAllProducts[k].votes);
+  }
+}
+
+
+
+
 
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
@@ -68,91 +102,130 @@ function handleClick() {
   // REMOVES THE PHOTOS
   if (amountOfClicks === clickStart) {
     containerElement.remove();
+    getChart();
 
-    var ulElement = document.getElementById('list');
-    for(var j = 0; j <allProducts.length; j++) {
-      var liElement = document.createElement('li');
-      liElement.textContent = `${allProducts[j].name} had ${allProducts[j].views} views and ${allProducts[j].votes} votes.`;
-      ulElement.appendChild(liElement);
-    }
+
+    // var ulElement = document.getElementById('list');
+    // for(var j = 0; j <allProducts.length; j++) {
+    //   var liElement = document.createElement('li');
+    //   liElement.textContent = `${allProducts[j].name} had ${allProducts[j].views} views and ${allProducts[j].votes} votes.`;
+    //   ulElement.appendChild(liElement);
+
+    // LOCAL STORAGE STUFF
+
+    var allProductsStringified = JSON.stringify(allProducts);
+
+    // storing 'data' into local storage
+    localStorage.setItem('votes', allProductsStringified);
+    // getting 'data' from local st
+
   }
 }
+
 
 containerElement.addEventListener('click', handleClick);
 
 
+// let testBag = {
+//   name: 'bag',
+//   path: 'images/bag.jpg',
+//   views: 8,
+//   votes: 3
+// };
 
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('usb');
-new Product('water-can');
-new Product('wine-glass');
+// let originalBag = new Product('bag');
+
+// originalBag.views = testBag.views;
+// originalBag.votes = testBag.votes;
+
+
 
 renderProducts();
 
 
 
 
+
+// if(there is local storage) {
+//   - retrieve data from local storage
+//   - assign data to where it will be used
+// } else {
+//   create instances
+// }
+
+
+
 // CHART STUFF STARTS HERE
 
 // STORES PROPERTIES TO DISPLAY IN CHART
-Product.namesData = [];
-Product.votesData = [];
-Product.viewsData = [];
+var namesData = [];
+var votesData = [];
+var viewsData = [];
 
 //PUSH DATA INTO ARRAYS INTO CHART FUNCTION
-var getChartData = function() {
-  for (var i = 0; i < Product.allProducts.length; i++) {
-    Product.namesData.push(allProducts[i].name);
-    Product.votesData.push(allProducts[i].votes);
-    Product.viewsData.push(allProducts[i].views);
+function getChartData() {
+  for (var i = 0; i < allProducts.length; i++) {
+    namesData.push(allProducts[i].name);
+    votesData.push(allProducts[i].votes);
+    viewsData.push(allProducts[i].views);
   }
-};
+}
 
 
-function geChart() {
+function getChart() {
   getChartData();
 
   var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: Product.namesData,
+      labels: namesData,
       datasets: [{
         label: 'Votes',
-        data: Product.votesData,
-        label: 'Views',
-        data: Product.viewsData,
+        data: votesData,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
           'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+
         ],
         borderWidth: 1
       }]
@@ -169,4 +242,6 @@ function geChart() {
   });
 }
 
-geChart();
+
+
+
