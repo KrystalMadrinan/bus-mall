@@ -65,7 +65,7 @@ function handleClick() {
   clickStart++;
   console.log(clickStart);
   renderProducts();
-
+  // REMOVES THE PHOTOS
   if (amountOfClicks === clickStart) {
     containerElement.remove();
 
@@ -79,7 +79,6 @@ function handleClick() {
 }
 
 containerElement.addEventListener('click', handleClick);
-
 
 
 
@@ -105,3 +104,69 @@ new Product('water-can');
 new Product('wine-glass');
 
 renderProducts();
+
+
+
+
+// CHART STUFF STARTS HERE
+
+// STORES PROPERTIES TO DISPLAY IN CHART
+Product.namesData = [];
+Product.votesData = [];
+Product.viewsData = [];
+
+//PUSH DATA INTO ARRAYS INTO CHART FUNCTION
+var getChartData = function() {
+  for (var i = 0; i < Product.allProducts.length; i++) {
+    Product.namesData.push(allProducts[i].name);
+    Product.votesData.push(allProducts[i].votes);
+    Product.viewsData.push(allProducts[i].views);
+  }
+};
+
+
+function geChart() {
+  getChartData();
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Product.namesData,
+      datasets: [{
+        label: 'Votes',
+        data: Product.votesData,
+        label: 'Views',
+        data: Product.viewsData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+geChart();
