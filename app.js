@@ -101,7 +101,7 @@ function handleClick() {
   renderProducts();
   // REMOVES THE PHOTOS
   if (amountOfClicks === clickStart) {
-    containerElement.remove();
+    containerElement.removeEventListener('click', handleClick);
     getChart();
 
 
@@ -126,23 +126,7 @@ function handleClick() {
 containerElement.addEventListener('click', handleClick);
 
 
-// let testBag = {
-//   name: 'bag',
-//   path: 'images/bag.jpg',
-//   views: 8,
-//   votes: 3
-// };
-
-// let originalBag = new Product('bag');
-
-// originalBag.views = testBag.views;
-// originalBag.votes = testBag.votes;
-
-
-
 renderProducts();
-
-
 
 
 
