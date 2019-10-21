@@ -1,11 +1,14 @@
 'use strict';
 
+// MANIPULATING THE DOM
 var leftImageElement = document.getElementById('leftImage');
 var centerImageElement = document.getElementById('centerImage');
 var rightImageElement = document.getElementById('rightImage');
 var containerElement = document.getElementById('imageContainer');
 
 var allProducts = [];
+
+// CONSTRUCTOR FUNCTION
 
 function Product(name, views, votes) {
   this.name = name;
@@ -47,7 +50,7 @@ if (localStorage.getItem('votes') === null) {
 
 
 
-
+// THIS SHOWS PHOTOS RANDOMLY BY ACCESSING THE INDEX OF THE ARRAY
 
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
@@ -84,6 +87,9 @@ function renderProducts() {
   rightImageElement.title = allProducts[uniquePicsArray[2]].name;
 }
 
+
+
+// THIS HERE STOPS THE CLICK WORKING BUT KEEPS THE PHOTOS
 var clickStart = 0;
 var amountOfClicks = 25;
 
@@ -225,7 +231,3 @@ function getChart() {
     }
   });
 }
-
-
-
-
