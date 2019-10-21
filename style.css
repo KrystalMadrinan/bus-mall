@@ -7,6 +7,20 @@ header {
     margin-top: 30px;
 }
 
+h2 {
+    font-style: italic;
+    font-size: 90px;
+    margin-top: 30px;
+    letter-spacing: 5px;
+}
+
+div {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
 section {
     align-content: center;
     border: red;
@@ -40,4 +54,9 @@ section {
     display: inline-block;
     width: 300px;
     height: 300px;
+}
+
+img:hover {
+    border: 1px solid black;
+    border-radius: 10%;
 }
